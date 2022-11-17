@@ -26,7 +26,7 @@ class SequelizeConfigService implements SequelizeOptionsFactory {
         } else {
             return {
                 dialect: 'postgres',
-                host: process.env.DATABASE_URL,
+                uri: process.env.DATABASE_URL,
                 dialectOptions: {
                     ssl: {
                         require: true,
