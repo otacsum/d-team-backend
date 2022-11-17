@@ -35,7 +35,7 @@ export class HealthcheckService {
 
             if (result.id == healthEntity.id) {
                 healthResult['Database-Read'] = 'Healthy';
-                healthResult['Last-Check'] = result.last_check;
+                healthResult['Last-Check'] = result.createdAt;
             }
 
             return healthResult;
