@@ -1,5 +1,5 @@
 import {Module} from '@nestjs/common';
-import {Healthcheck} from '../models/healthcheck.model';
+import {Healthcheck} from '../../models/healthcheck.model';
 import {HealthcheckService} from './healthcheck.service';
 import {HealthcheckController} from './healthcheck.controller';
 import {SequelizeModule} from '@nestjs/sequelize';

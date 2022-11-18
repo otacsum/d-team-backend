@@ -5,6 +5,7 @@ import {HealthcheckModule} from './healthcheck/healthcheck.module';
 import {Module} from '@nestjs/common';
 import {SequelizeModule} from '@nestjs/sequelize';
 import {SequelizeConfigService} from './config/sequelize.config';
+import { PersonModule } from './person/person.module';
 
 @Module({
     imports: [
@@ -15,6 +16,7 @@ import {SequelizeConfigService} from './config/sequelize.config';
             useClass: SequelizeConfigService,
         }),
         HealthcheckModule,
+        PersonModule,
     ],
     controllers: [AppController],
     providers: [AppService],

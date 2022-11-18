@@ -1,6 +1,6 @@
 
 import {Injectable} from '@nestjs/common';
-import {Healthcheck} from '../models/healthcheck.model';
+import {Healthcheck} from '../../models/healthcheck.model';
 import {SequelizeOptionsFactory, SequelizeModuleOptions} from '@nestjs/sequelize';
 
 @Injectable()
