@@ -12,31 +12,30 @@ export class Person extends Model {
     @Column
     type: string;
 
-    
     @Column
     first_name: string;
-    
+
     @Column
     last_name: string;
-    
+
     @Column
     email: string;
-    
+
     @Column
     street_address: string;
-    
+
     @Column
     city: string;
-    
+
     @Column
     state_abbreviation: string;
-    
+
     @Column
     zip_code: number;
-    
+
     @Column
     pass_hash: string;
-    
+
     @Column
     is_active: boolean;
 

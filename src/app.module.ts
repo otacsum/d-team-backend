@@ -5,7 +5,7 @@ import {HealthcheckModule} from './healthcheck/healthcheck.module';
 import {Module} from '@nestjs/common';
 import {SequelizeModule} from '@nestjs/sequelize';
 import {SequelizeConfigService} from './config/sequelize.config';
-import { PersonModule } from './person/person.module';
+import {PersonModule} from './person/person.module';
 
 @Module({
     imports: [

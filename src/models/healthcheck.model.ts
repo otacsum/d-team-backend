@@ -1,8 +1,9 @@
-import {Column, Model, Table} from 'sequelize-typescript';
+import {Column, Model, PrimaryKey, Table} from 'sequelize-typescript';
 
 @Table
 export class Healthcheck extends Model {
-    @Column({primaryKey: true})
+    @PrimaryKey
+    @Column
     id?: number;
 
     @Column

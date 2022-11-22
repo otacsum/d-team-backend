@@ -1,9 +1,10 @@
 import {Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/sequelize';
-import {Healthcheck} from '../../models/healthcheck.model';
+import {Healthcheck} from '../models/healthcheck.model';
 
 @Injectable()
 export class HealthcheckService {
+    
     constructor(
         @InjectModel(Healthcheck)
         private healthModel: typeof Healthcheck,
