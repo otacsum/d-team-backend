@@ -1,4 +1,5 @@
-import {Column, DataType, Model, PrimaryKey, Table, IsEmail} from 'sequelize-typescript';
+import {Column, DataType, Model, PrimaryKey, Table, IsEmail, HasMany} from 'sequelize-typescript';
+import {TeacherCredential} from './teachercredential.model';
 
 @Table
 export class Person extends Model {
@@ -33,6 +34,9 @@ export class Person extends Model {
 
     @Column
     zip_code: number;
+
+    @HasMany(() => TeacherCredential)
+    credentials: TeacherCredential[];
 
     @Column
     pass_hash: string;

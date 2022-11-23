@@ -1,4 +1,4 @@
-export class PersonConfirmDto {
+export class ConfirmDto {
     id?: string;
     createdAt?: Date;
     success: boolean;

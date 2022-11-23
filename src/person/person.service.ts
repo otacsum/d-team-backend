@@ -2,10 +2,11 @@ import {Injectable, NotFoundException} from '@nestjs/common';
 import {InjectModel} from '@nestjs/sequelize';
 import {Person} from '../models/person.model';
 import {CreatePersonDto} from './dto/create-person.dto';
-import {PersonConfirmDto} from './dto/person-confirm.dto';
+import {ConfirmDto} from '../lib/confirm.dto';
 import {UpdatePersonDto} from './dto/update-person.dto';
 import {LoginDto} from './dto/login.dto';
 import * as bcrypt from 'bcrypt';
+import {TeacherCredential} from 'src/models/teachercredential.model';
 
 @Injectable()
 export class PersonService {
@@ -21,7 +22,7 @@ export class PersonService {
      * @returns Confirmation payload
      */
     async create(createPersonDto: CreatePersonDto) {
-        let returnPayload: PersonConfirmDto;
+        let returnPayload: ConfirmDto;
         try {
             createPersonDto.pass_hash = await this
                 .hashPassword(createPersonDto.pass_hash);
@@ -53,6 +54,7 @@ export class PersonService {
                 attributes: {
                     exclude: ['pass_hash']
                 },
+                include: [TeacherCredential],
             });
         } catch (err) {
             return err;
@@ -74,6 +76,7 @@ export class PersonService {
                 attributes: {
                     exclude: ['pass_hash']
                 },
+                include: [TeacherCredential],
             });
 
             if (person) {
@@ -93,7 +96,7 @@ export class PersonService {
      * @returns Confirmation payload
      */
     async update(id: string, updatePersonDto: UpdatePersonDto) {
-        let returnPayload: PersonConfirmDto;
+        let returnPayload: ConfirmDto;
         try {
             if (updatePersonDto.pass_hash) {
                 updatePersonDto.pass_hash = await this
@@ -124,7 +127,7 @@ export class PersonService {
      * @returns Confirmation payload
      */
     async remove(id: string) {
-        let returnPayload: PersonConfirmDto;
+        let returnPayload: ConfirmDto;
         const person: Person = await this.findOne(id);
         try {
             await this.personModel
@@ -157,7 +160,7 @@ export class PersonService {
      * @returns Confirmation Payload
      */
     async login(loginDto: LoginDto) {
-        let returnPayload: PersonConfirmDto = {
+        let returnPayload: ConfirmDto = {
             success: false,
             message: 'Invalid credentials',
         };
