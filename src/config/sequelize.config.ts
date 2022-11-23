@@ -1,8 +1,6 @@
 
 import {Injectable} from '@nestjs/common';
 import {SequelizeOptionsFactory, SequelizeModuleOptions} from '@nestjs/sequelize';
-import {Healthcheck} from '../models/healthcheck.model';
-import {Person} from '../models/person.model';
 
 @Injectable()
 export class SequelizeConfigService implements SequelizeOptionsFactory {
@@ -16,8 +14,8 @@ export class SequelizeConfigService implements SequelizeOptionsFactory {
                 password: process.env.DATABASE_PASS,
                 database: process.env.DATABASE_NAME,
                 schema: process.env.DATABASE_SCHEMA,
-                models: [Healthcheck, Person],
-                synchronize: false,
+                autoLoadModels: true, //models: [Healthcheck, Person],
+                synchronize: true,  // false
                 retryAttempts: 3,
                 omitNull: true,
             }
@@ -31,8 +29,8 @@ export class SequelizeConfigService implements SequelizeOptionsFactory {
                         rejectUnauthorized: false,
                     },
                 },
-                models: [Healthcheck, Person],
-                synchronize: false,
+                autoLoadModels: true, //models: [Healthcheck, Person],
+                synchronize: true,  // false
                 retryAttempts: 3,
                 omitNull: true,
             }

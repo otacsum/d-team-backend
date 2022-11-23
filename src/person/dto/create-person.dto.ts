@@ -30,7 +30,7 @@ export class CreatePersonDto {
     @IsString()
     pass_hash?: string;
 
-    is_active?: boolean
-    createdAt?: Date
+    is_active?: boolean;
+    createdAt?: Date;
     updatedAt?: Date;
 }

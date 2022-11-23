@@ -2,6 +2,7 @@ import {Controller, Get, Post, Body, Patch, Param, Delete} from '@nestjs/common'
 import {PersonService} from './person.service';
 import {CreatePersonDto} from './dto/create-person.dto';
 import {UpdatePersonDto} from './dto/update-person.dto';
+import {LoginDto} from './dto/login.dto';
 
 @Controller('person')
 export class PersonController {
@@ -30,5 +31,10 @@ export class PersonController {
     @Delete(':id')
     remove(@Param('id') id: string) {
         return this.personService.remove(id);
+    }
+
+    @Post('/login')
+    login(@Body() loginDto: LoginDto) {
+        return this.personService.login(loginDto);
     }
 }
