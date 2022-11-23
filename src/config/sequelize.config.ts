@@ -24,7 +24,7 @@ export class SequelizeConfigService implements SequelizeOptionsFactory {
         } else {
             return {
                 dialect: 'postgres',
-                uri: process.env.DATABASE_URL,
+                uri: process.env.HEROKU_POSTGRESQL_WHITE_URL,
                 dialectOptions: {
                     ssl: {
                         require: true,
