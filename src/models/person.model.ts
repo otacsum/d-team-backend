@@ -1,4 +1,4 @@
-import {Column, DataType, Model, PrimaryKey, Table} from 'sequelize-typescript';
+import {Column, DataType, Model, PrimaryKey, Table, IsEmail} from 'sequelize-typescript';
 
 @Table
 export class Person extends Model {
@@ -18,6 +18,7 @@ export class Person extends Model {
     @Column
     last_name: string;
 
+    @IsEmail
     @Column
     email: string;
 

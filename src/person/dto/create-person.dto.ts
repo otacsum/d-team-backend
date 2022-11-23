@@ -1,4 +1,4 @@
-import {IsBoolean, IsEmail, IsNumber, IsString} from 'class-validator';
+import {IsEmail, IsNumber, IsString} from 'class-validator';
 
 export class CreatePersonDto {
     id?: string;
@@ -28,7 +28,7 @@ export class CreatePersonDto {
     zip_code: number;
 
     @IsString()
-    pass_hash: string;
+    pass_hash?: string;
 
     is_active?: boolean
     createdAt?: Date
