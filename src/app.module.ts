@@ -7,6 +7,7 @@ import {SequelizeModule} from '@nestjs/sequelize';
 import {SequelizeConfigService} from './config/sequelize.config';
 import {PersonModule} from './person/person.module';
 import { TeacherCredentialModule } from './teacher-credential/teacher-credential.module';
+import { CourseModule } from './course/course.module';
 
 @Module({
     imports: [
@@ -19,6 +20,7 @@ import { TeacherCredentialModule } from './teacher-credential/teacher-credential
         HealthcheckModule,
         PersonModule,
         TeacherCredentialModule,
+        CourseModule,
     ],
     controllers: [AppController],
     providers: [AppService],

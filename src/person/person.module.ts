@@ -1,7 +1,7 @@
 import {Module} from '@nestjs/common';
 import {PersonService} from './person.service';
 import {PersonController} from './person.controller';
-import {Person} from '..//models/person.model';
+import {Person} from './person.model';
 import {SequelizeModule} from '@nestjs/sequelize';
 
 @Module({

@@ -19,16 +19,16 @@ export class TeacherCredentialController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.teacherCredentialService.findOne(+id);
+    return this.teacherCredentialService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateTeacherCredentialDto: UpdateTeacherCredentialDto) {
-    return this.teacherCredentialService.update(+id, updateTeacherCredentialDto);
+    return this.teacherCredentialService.update(id, updateTeacherCredentialDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.teacherCredentialService.remove(+id);
+    return this.teacherCredentialService.remove(id);
   }
 }

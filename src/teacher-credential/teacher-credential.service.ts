@@ -1,8 +1,8 @@
-import {Injectable} from '@nestjs/common';
+import {Injectable, NotFoundException} from '@nestjs/common';
 import {InjectModel} from '@nestjs/sequelize';
 import {ConfirmDto} from 'src/lib/confirm.dto';
-import {Person} from 'src/models/person.model';
-import {TeacherCredential} from '../models/teachercredential.model';
+import {Person} from 'src/person/person.model';
+import {TeacherCredential} from './teacher-credential.model';
 import {CreateTeacherCredentialDto} from './dto/create-teacher-credential.dto';
 import {UpdateTeacherCredentialDto} from './dto/update-teacher-credential.dto';
 
@@ -38,22 +38,80 @@ export class TeacherCredentialService {
         try {
             return await this.credentialModel.findAll({
                 include: [Person],
+                attributes: {
+                    exclude: ['person.pass_hash']
+                },
             });
         } catch (err) {
             return err;
         }
     }
 
-    async findOne(id: number) {
-        return `This action returns a #${id} teacherCredential`;
+    async findOne(id: string) {
+        try {
+            const credential = await this.credentialModel.findOne({
+                where: {
+                    id: id,
+                    is_active: true
+                },
+                include: [Person],
+            });
+
+            if (credential) {
+                return credential;
+            } else {
+                throw new NotFoundException;
+            }
+        } catch (err) {
+            return err;
+        }
     }
 
-    async update(id: number, updateTeacherCredentialDto: UpdateTeacherCredentialDto) {
-        return `This action updates a #${id} teacherCredential`;
+    async update(id: string, updateTeacherCredentialDto: UpdateTeacherCredentialDto) {
+        let returnPayload: ConfirmDto;
+        try {
+            await this.credentialModel
+                .update(updateTeacherCredentialDto as any, {
+                    where: {
+                        id: id
+                    }
+                })
+                .then(results => {
+                    returnPayload = {
+                        success: true,
+                        message: `Credential id: (${id}) updated`
+                    }
+                });
+        } catch (err) {
+            returnPayload = this.generateFriendlyError(err)
+        }
+        return returnPayload;
     }
 
-    async remove(id: number) {
-        return `This action removes a #${id} teacherCredential`;
+    async remove(id: string) {
+        let returnPayload: ConfirmDto;
+        try {
+            await this.credentialModel
+                .update(
+                    {
+                        is_active: false
+                    },
+                    {
+                        where: {
+                            id: id
+                        }
+                    }
+                )
+                .then(results => {
+                    returnPayload = {
+                        success: true,
+                        message: `Credential id: (${id}) deactivated`
+                    }
+                });
+        } catch (err) {
+            returnPayload = this.generateFriendlyError(err)
+        }
+        return returnPayload;
     }
 
 
