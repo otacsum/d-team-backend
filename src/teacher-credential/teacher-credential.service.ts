@@ -37,9 +37,11 @@ export class TeacherCredentialService {
     async findAll() {
         try {
             return await this.credentialModel.findAll({
-                include: [Person],
-                attributes: {
-                    exclude: ['person.pass_hash']
+                include: {
+                    model: Person,
+                    attributes: {
+                        exclude: ['pass_hash']
+                    },
                 },
             });
         } catch (err) {
@@ -54,7 +56,12 @@ export class TeacherCredentialService {
                     id: id,
                     is_active: true
                 },
-                include: [Person],
+                include: {
+                    model: Person,
+                    attributes: {
+                        exclude: ['pass_hash']
+                    },
+                }
             });
 
             if (credential) {
@@ -116,36 +123,36 @@ export class TeacherCredentialService {
 
 
 
-        /**
+    /**
      * Helper Function
      * @param err Caught Error
      * @returns Object containing error details.
      */
-         private generateFriendlyError(err: any) {
-            let payload;
-            try {
-                const errorMessage: string = `Failed: ${err.message}`;
-                const errorDetail: string = err.original.detail;
-                console.log(errorMessage);
-    
-                payload = {
-                    success: false,
-                    message: errorMessage,
-                    detail: errorDetail
-                }
-    
-                // return a good error detail if available
-                return payload;
-            } catch (err) {
-                // catch inner error when detail not available.
-                console.log(err.message);
-            }
-            // create detail of outer error if detail not available.
+    private generateFriendlyError(err: any) {
+        let payload;
+        try {
+            const errorMessage: string = `Failed: ${err.message}`;
+            const errorDetail: string = err.original.detail;
+            console.log(errorMessage);
+
             payload = {
                 success: false,
-                message: '',
-                detail: err.message
+                message: errorMessage,
+                detail: errorDetail
             }
+
+            // return a good error detail if available
             return payload;
+        } catch (err) {
+            // catch inner error when detail not available.
+            console.log(err.message);
         }
+        // create detail of outer error if detail not available.
+        payload = {
+            success: false,
+            message: '',
+            detail: err.message
+        }
+        return payload;
+    }
 }
