@@ -17,6 +17,7 @@ export class CourseService {
     async create(createCourseDto: CreateCourseDto) {
         let returnPayload: ConfirmDto;
         try {
+            //TODO: Create method to validate start date comes before end date.
             await this.courseModel
                 .create(createCourseDto as any)
                 .then(results => {

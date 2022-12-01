@@ -8,6 +8,7 @@ import {SequelizeConfigService} from './config/sequelize.config';
 import {PersonModule} from './person/person.module';
 import { TeacherCredentialModule } from './teacher-credential/teacher-credential.module';
 import { CourseModule } from './course/course.module';
+import { CourseStudentModule } from './course-student/course-student.module';
 
 @Module({
     imports: [
@@ -21,6 +22,7 @@ import { CourseModule } from './course/course.module';
         PersonModule,
         TeacherCredentialModule,
         CourseModule,
+        CourseStudentModule,
     ],
     controllers: [AppController],
     providers: [AppService],
