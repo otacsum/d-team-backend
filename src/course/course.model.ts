@@ -1,5 +1,6 @@
-import {BelongsTo, Column, DataType, ForeignKey, Model, PrimaryKey, Table} from 'sequelize-typescript';
-import {Person} from '../person/person.model';
+import {BelongsTo, Column, DataType, ForeignKey, HasMany, Model, PrimaryKey, Table} from 'sequelize-typescript';
+import {CourseStudent} from './course-student.model';
+import {Person} from 'src/person/person.model';
 
 @Table
 export class Course extends Model {
@@ -12,12 +13,15 @@ export class Course extends Model {
 
     @ForeignKey(() => Person)
     @Column({
-        type: DataType.UUID
+        type: DataType.UUID,
     })
     public person_id;
 
     @BelongsTo(() => Person)
-    person: Person;
+    instructor: Person;
+
+    @HasMany(() => CourseStudent)
+    students: CourseStudent[];
 
     @Column
     subject_abbreviation: string;
