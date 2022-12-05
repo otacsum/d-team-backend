@@ -1,11 +1,11 @@
 import {Injectable, NotFoundException} from '@nestjs/common';
 import {InjectModel} from '@nestjs/sequelize';
 import {ConfirmDto} from 'src/lib/confirm.dto';
-import {Course} from './course.model';
-import {Person} from 'src/person/person.model';
+import {Course} from './models/course.model';
+import {Person} from 'src/person/models/person.model';
 import {CreateCourseDto} from './dto/create-course.dto';
 import {UpdateCourseDto} from './dto/update-course.dto';
-import {CourseStudent} from './course-student.model';
+import {CourseStudent} from './models/course-student.model';
 
 @Injectable()
 export class CourseService {

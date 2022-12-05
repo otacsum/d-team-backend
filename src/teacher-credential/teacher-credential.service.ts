@@ -1,8 +1,8 @@
 import {Injectable, NotFoundException} from '@nestjs/common';
 import {InjectModel} from '@nestjs/sequelize';
 import {ConfirmDto} from 'src/lib/confirm.dto';
-import {Person} from 'src/person/person.model';
-import {TeacherCredential} from './teacher-credential.model';
+import {Person} from 'src/person/models/person.model';
+import {TeacherCredential} from './models/teacher-credential.model';
 import {CreateTeacherCredentialDto} from './dto/create-teacher-credential.dto';
 import {UpdateTeacherCredentialDto} from './dto/update-teacher-credential.dto';
 

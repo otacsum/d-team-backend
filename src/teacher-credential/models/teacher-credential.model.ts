@@ -1,9 +1,8 @@
 import {BelongsTo, Column, DataType, ForeignKey, Model, PrimaryKey, Table} from 'sequelize-typescript';
-import {Person} from 'src/person/person.model';
-import {Course} from 'src/course/course.model';
+import {Person} from 'src/person/models/person.model';
 
 @Table
-export class CourseStudent extends Model {
+export class TeacherCredential extends Model {
     @PrimaryKey
     @Column({
         type: DataType.UUID,
@@ -18,16 +17,19 @@ export class CourseStudent extends Model {
     public person_id;
 
     @BelongsTo(() => Person)
-    student: Person;
+    person: Person;
 
-    @ForeignKey(() => Course)
-    @Column({
-        type: DataType.UUID
-    })
-    public course_id;
+    @Column
+    job_title: string;
 
-    @BelongsTo(() => Course)
-    course: Course;
+    @Column
+    rank: string;
+
+    @Column
+    credential_type: string;
+
+    @Column
+    subject_abbreviation: string;
 
     @Column
     is_active: boolean;

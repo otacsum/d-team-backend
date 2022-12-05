@@ -1,5 +1,5 @@
 import {Column, DataType, Model, PrimaryKey, Table, IsEmail, HasMany} from 'sequelize-typescript';
-import {TeacherCredential} from '../teacher-credential/teacher-credential.model';
+import {TeacherCredential} from '../../teacher-credential/models/teacher-credential.model';
 
 @Table
 export class Person extends Model {

@@ -1,9 +1,9 @@
 
 import {Injectable} from '@nestjs/common';
 import {SequelizeOptionsFactory, SequelizeModuleOptions} from '@nestjs/sequelize';
-import {Healthcheck} from 'src/healthcheck/healthcheck.model';
-import {Person} from 'src/person/person.model';
-import {TeacherCredential} from 'src/teacher-credential/teacher-credential.model';
+import {Healthcheck} from 'src/healthcheck/models/healthcheck.model';
+import {Person} from 'src/person/models/person.model';
+import {TeacherCredential} from 'src/teacher-credential/models/teacher-credential.model';
 
 @Injectable()
 export class SequelizeConfigService implements SequelizeOptionsFactory {

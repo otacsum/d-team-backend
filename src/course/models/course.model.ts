@@ -1,6 +1,6 @@
 import {BelongsTo, Column, DataType, ForeignKey, HasMany, Model, PrimaryKey, Table} from 'sequelize-typescript';
 import {CourseStudent} from './course-student.model';
-import {Person} from 'src/person/person.model';
+import {Person} from 'src/person/models/person.model';
 
 @Table
 export class Course extends Model {

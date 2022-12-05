@@ -1,12 +1,12 @@
 import {Injectable, NotFoundException} from '@nestjs/common';
 import {InjectModel} from '@nestjs/sequelize';
-import {Person} from './person.model';
+import {Person} from './models/person.model';
 import {CreatePersonDto} from './dto/create-person.dto';
 import {ConfirmDto} from '../lib/confirm.dto';
 import {UpdatePersonDto} from './dto/update-person.dto';
 import {LoginDto} from './dto/login.dto';
 import * as bcrypt from 'bcrypt';
-import {TeacherCredential} from 'src/teacher-credential/teacher-credential.model';
+import {TeacherCredential} from 'src/teacher-credential/models/teacher-credential.model';
 
 @Injectable()
 export class PersonService {
