@@ -2,7 +2,7 @@ import {BelongsTo, Column, DataType, ForeignKey, Model, PrimaryKey, Table} from 
 import {Course} from 'src/course/models/course.model';
 
 @Table
-export class Assignment extends Model {
+export class CourseAssignment extends Model {
     @PrimaryKey
     @Column({
         type: DataType.UUID,
