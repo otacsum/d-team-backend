@@ -18,6 +18,11 @@ export class PersonController {
         return this.personService.findAll();
     }
 
+    @Get('type/:personType')
+    findAllByType(@Param('personType') personType: string) {
+        return this.personService.findAllByType(personType);
+    }
+
     @Get(':id')
     findOne(@Param('id') id: string) {
         return this.personService.findOne(id);

@@ -62,6 +62,26 @@ export class PersonService {
     }
 
     /**
+     * Gets all active people from the database.
+     * @returns Array of person objects.
+     */
+    async findAllByType(personType: string) {
+        try {
+            return await this.personModel.findAll({
+                where: {
+                    type: personType,
+                },
+                attributes: {
+                    exclude: ['pass_hash']
+                },
+                include: [TeacherCredential],
+            });
+        } catch (err) {
+            return err;
+        }
+    }
+
+    /**
      * Gets one active person from the database.
      * @param id UUID of the person whom we are requesting.
      * @returns Person object
