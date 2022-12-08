@@ -165,6 +165,9 @@ export class CourseService {
     async findAllStudentsInCourse(courseId: string) {
         try {
             return await this.courseModel.findAll({
+                attributes: {
+                    exclude: ['person_id'],
+                },
                 include: [
                     {
                         model: Person,  // Instructor Join
