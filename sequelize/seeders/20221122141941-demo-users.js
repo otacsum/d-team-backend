@@ -1,7 +1,7 @@
 const uuid = require('uuid');
 const bcrypt = require('bcrypt');
 
-const numPeople = 3; // Number of people to generate in the migration.
+const numPeople = 9; // Number of people to generate in the migration.
 const passwords = [];
 
 'use strict';
