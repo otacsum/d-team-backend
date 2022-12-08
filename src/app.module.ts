@@ -9,6 +9,7 @@ import {PersonModule} from './person/person.module';
 import { TeacherCredentialModule } from './teacher-credential/teacher-credential.module';
 import { CourseModule } from './course/course.module';
 import { AssignmentModule } from './assignment/assignment.module';
+import { AssignmentGradeModule } from './assignment-grade/assignment-grade.module';
 
 @Module({
     imports: [
@@ -23,6 +24,7 @@ import { AssignmentModule } from './assignment/assignment.module';
         TeacherCredentialModule,
         CourseModule,
         AssignmentModule,
+        AssignmentGradeModule,
     ],
     controllers: [AppController],
     providers: [AppService],
