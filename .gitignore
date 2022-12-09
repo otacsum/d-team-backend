@@ -48,3 +48,4 @@ lerna-debug.log*
 /config
 /dbdata
 /dbdata/*
+/database_backups

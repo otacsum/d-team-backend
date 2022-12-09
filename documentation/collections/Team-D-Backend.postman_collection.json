@@ -1,0 +1,1023 @@
+{
+	"info": {
+		"_postman_id": "6818d1a7-52e7-43aa-8923-2a34794f506a",
+		"name": "Team-D-Backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16262388"
+	},
+	"item": [
+		{
+			"name": "People",
+			"item": [
+				{
+					"name": "Create Person",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"student\",\n    \"first_name\": \"testFirstname\",\n    \"last_name\": \"testLastname\",\n    \"email\": \"testEmail\",\n    \"street_address\": \"testAddress\",\n    \"city\": \"testCity\",\n    \"state_abbreviation\": \"AA\",\n    \"zip_code\": 12345,\n    \"pass_hash\": \"testPass\",\n    \"is_active\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/person",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"person"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Log In",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"test.mail0@test.test\",\n    \"password\": \"testPass0\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/person/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"person",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find All People",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/person",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"person"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find All People by Type",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/person/type/:personType",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"person",
+								"type",
+								":personType"
+							],
+							"variable": [
+								{
+									"key": "personType",
+									"value": "teacher",
+									"description": "Can be 'student' or 'teacher'"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Person by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/person/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"person",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{personId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Person by ID",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"teacher\",\n    \"is_active\": true\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/person/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"person",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{personId}}",
+									"description": "Choose and activate a person ID from the environment."
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Password",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\": \"testPass0\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/person/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"person",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{personId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deactivate Person by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/person/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"person",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{personId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Teacher Credentials",
+			"item": [
+				{
+					"name": "Create a Credential",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"person_id\": \"{{teacherId}}\",\n    \"job_title\": \"Certified Information Systems Security Professional (CISSP)\",\n    \"rank\": \"\",\n    \"credential_type\": \"Certification\",\n    \"subject_abbreviation\": \"CSE\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/credential",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"credential"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find All Credentials",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/credential",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"credential"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Credential by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/credential/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"credential",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{credentialId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Credential by ID",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rank\": \"Tenured\",\n    \"is_active\": true\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/credential/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"credential",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{credentialId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deactivate Credential by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/credential/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"credential",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{credentialId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Courses",
+			"item": [
+				{
+					"name": "Course Students",
+					"item": [
+						{
+							"name": "Add Student to Course",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/course/:courseId/students/:studentId",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"course",
+										":courseId",
+										"students",
+										":studentId"
+									],
+									"variable": [
+										{
+											"key": "courseId",
+											"value": "{{courseId}}"
+										},
+										{
+											"key": "studentId",
+											"value": "{{studentId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find Student in Course",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/course/:id/students/:studentId",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"course",
+										":id",
+										"students",
+										":studentId"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{courseId}}"
+										},
+										{
+											"key": "studentId",
+											"value": "{{studentId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find Student by Registration ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/course/students/:registrationId",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"course",
+										"students",
+										":registrationId"
+									],
+									"variable": [
+										{
+											"key": "registrationId",
+											"value": "{{registrationId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find All Students in Course",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/course/:courseId/students",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"course",
+										":courseId",
+										"students"
+									],
+									"variable": [
+										{
+											"key": "courseId",
+											"value": "{{courseId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove Student from Course",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/course/:id/students/:studentId",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"course",
+										":id",
+										"students",
+										":studentId"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{courseId}}"
+										},
+										{
+											"key": "studentId",
+											"value": "{{studentId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove Student by Registration ID",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/course/students/:registrationId",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"course",
+										"students",
+										":registrationId"
+									],
+									"variable": [
+										{
+											"key": "registrationId",
+											"value": "{{registrationId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Create a Course",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"person_id\": \"{{teacherId}}\",\n    \"subject_abbreviation\": \"PHYS\",\n    \"code\": 162,\n    \"title\": \"Intro to Physics for Engineers\",\n    \"description\": \"Asynchronous confabulation events can further confuse the understanding of stabilized vibrational resonance, combined with geodesic lattice structures. Oscillation within a space time matrix, with respect to fractally enhanced vibrational modes, bonded on a quantum level with a higher order harmonic series.\",\n    \"start_date\": \"01/31/2023\",\n    \"end_date\": \"03/31/2023\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/course",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"course"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create a Physics Class",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"person_id\": \"{{teacherId}}\",\n    \"subject_abbreviation\": \"PHYS\",\n    \"code\": 162,\n    \"title\": \"Intro to Physics for Engineers\",\n    \"description\": \"Asynchronous confabulation events can further confuse the understanding of stabilized vibrational resonance, combined with geodesic lattice structures. Oscillation within a space time matrix, with respect to fractally enhanced vibrational modes, bonded on a quantum level with a higher order harmonic series.\",\n    \"start_date\": \"01/31/2023\",\n    \"end_date\": \"03/31/2023\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/course",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"course"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Create a Programming Class",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"person_id\": \"{{teacherId}}\",\n    \"subject_abbreviation\": \"CSE\",\n    \"code\": 101,\n    \"title\": \"Intro to Java Programming\",\n    \"description\": \"Contributor clean code j program tech debt database. API cloud IRC gzip reflog GraphQL neck beard greedy algorithm git Twitter. Blockchain bike-shedding Ada Lovelace cache ecommerce platform idiosyncratic contexts maintainable JQuery inheritance sudo. Code-splitting internet button hardcoded open source frame rate commit sudo one-size-fits-all approach class mobile app.\",\n    \"start_date\": \"01/31/2023\",\n    \"end_date\": \"03/31/2023\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/course",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"course"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Find All Courses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/course",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"course"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Course by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/course/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"course",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{courseId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Course by ID",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"end_date\": \"02/01/1900\",\n    \"is_active\": true\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/course/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"course",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{courseId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deactivate Course by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/course/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"course",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{courseId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Course Assignments",
+			"item": [
+				{
+					"name": "Create an Assignment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"course_id\": \"{{courseId}}\",\n    \"type\": \"assignment\",\n    \"title\": \"Homework - Week 2\",\n    \"description\": \"Complete problems 2, 3, 6, 8, and 9 on page 27.  Show your work.\",\n    \"due_date\": \"02/14/2023\",\n    \"points_possible\": 125\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/assignment",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"assignment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find All Assignments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/assignment",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"assignment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Assignments by Course ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/assignment/course/{{courseId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"assignment",
+								"course",
+								"{{courseId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Assignment by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/assignment/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"assignment",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{assignmentId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Assignment by ID",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"points_possible\": 100,\n    \"is_active\": true\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/assignment/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"assignment",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{assignmentId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deactivate Assignment by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/assignment/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"assignment",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{assignmentId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Assignment Grades",
+			"item": [
+				{
+					"name": "Create an Grade",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"person_id\": \"812ebefb-3f2f-453c-b8ab-f621a979c91a\",\n    \"assignment_id\": \"025776f0-ec78-4789-bca4-cc03bdeed183\",\n    \"points_earned\": 72\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/grade",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"grade"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find All Grades for All Assignments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/grade",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"grade"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Grade by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/grade/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"grade",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{gradeId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Grade by ID",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"points_earned\": 85,\n    \"is_active\": true\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/grade/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"grade",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{gradeId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deactivate Grade by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/grade/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"grade",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{gradeId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Healthcheck",
+			"item": [
+				{
+					"name": "/healthcheck",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/healthcheck",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"healthcheck"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
