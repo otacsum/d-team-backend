@@ -54,6 +54,26 @@ export class AssignmentService {
         }
     }
 
+    async findAllByCourseId(id: string) {
+        try {
+            return await this.assignmentModel.findAll({
+                include: {
+                    model: Course,
+                    attributes: [
+                        'subject_abbreviation',
+                        'code',
+                        'title',
+                    ],
+                },
+                where: {
+                    course_id: id,
+                }
+            });
+        } catch (err) {
+            return err;
+        }
+    }
+
     async findOne(id: string) {
         try {
             const assignment = await this.assignmentModel.findOne({

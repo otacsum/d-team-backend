@@ -17,6 +17,11 @@ export class AssignmentController {
     return this.assignmentService.findAll();
   }
 
+  @Get('course/:id')
+  findAllByCourseId(@Param('id') id: string) {
+    return this.assignmentService.findAllByCourseId(id);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.assignmentService.findOne(id);
