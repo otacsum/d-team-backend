@@ -3,6 +3,7 @@ import {InjectModel} from '@nestjs/sequelize';
 import {Person} from './models/person.model';
 import {CreatePersonDto} from './dto/create-person.dto';
 import {ConfirmDto} from '../lib/confirm.dto';
+import {ConfirmLoginDto} from '../lib/confirm-login.dto';
 import {UpdatePersonDto} from './dto/update-person.dto';
 import {LoginDto} from './dto/login.dto';
 import * as bcrypt from 'bcrypt';
@@ -180,7 +181,7 @@ export class PersonService {
      * @returns Confirmation Payload
      */
     async login(loginDto: LoginDto) {
-        let returnPayload: ConfirmDto = {
+        let returnPayload: ConfirmLoginDto = {
             success: false,
             message: 'Invalid credentials',
         };
@@ -192,10 +193,12 @@ export class PersonService {
                         person.pass_hash
                     )
                         .then(isMatch => {
+                            person.pass_hash = '';
                             if (isMatch) {
                                 returnPayload = {
                                     success: true,
                                     message: 'Login successful',
+                                    person: person,
                                 };
                             }
                         });
@@ -246,7 +249,6 @@ export class PersonService {
                     email: email,
                     is_active: true
                 },
-                attributes: ['id', 'pass_hash'],
             });
         } catch (err) {
             return err;

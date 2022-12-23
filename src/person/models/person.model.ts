@@ -39,7 +39,7 @@ export class Person extends Model {
     credentials: TeacherCredential[];
 
     @Column
-    pass_hash: string;
+    pass_hash?: string;
 
     @Column
     is_active: boolean;
