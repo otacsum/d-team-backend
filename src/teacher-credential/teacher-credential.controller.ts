@@ -12,9 +12,9 @@ export class TeacherCredentialController {
     return this.teacherCredentialService.create(createTeacherCredentialDto);
   }
 
-  @Get()
-  findAll() {
-    return this.teacherCredentialService.findAll();
+  @Get('teacher/:personId')
+  findAllForTeacher(@Param('personId') personId: string) {
+    return this.teacherCredentialService.findAllForTeacher(personId);
   }
 
   @Get(':id')

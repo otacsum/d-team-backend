@@ -97,23 +97,32 @@ export class CourseService {
 
     async findAllByTeacher(teacherId: string) {
         try {
-            const course = await this.courseModel.findAll({
+            let courses = await this.courseModel.findAll({
+                attributes: {
+                    include: [
+                        '*',
+                        [Sequelize.literal('(SELECT COUNT(person_id) from "CourseStudents" WHERE "CourseStudents".course_id = "Course".id GROUP BY "CourseStudents".course_id)'), 'student_count'],
+                    ],
+                },
+                include: [
+                    {
+                        model: Person,
+                        attributes: [
+                            'id',
+                            'first_name',
+                            'last_name',
+                            'email',
+                        ],
+                    },
+                ],
                 where: {
                     person_id: teacherId,
                     is_active: true,
                 },
-                include: {
-                    model: Person,
-                    attributes: [
-                        'first_name',
-                        'last_name',
-                        'email',
-                    ],
-                },
             });
 
-            if (course) {
-                return course;
+            if (courses) {
+                return courses;
             } else {
                 throw new NotFoundException;
             }

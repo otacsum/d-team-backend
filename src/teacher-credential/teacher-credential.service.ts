@@ -34,9 +34,13 @@ export class TeacherCredentialService {
         return returnPayload;
     }
 
-    async findAll() {
+    async findAllForTeacher(personId: string) {
         try {
             return await this.credentialModel.findAll({
+                where: {
+                    person_id: personId,
+                    is_active: true,
+                },
                 include: {
                     model: Person,
                     attributes: {
