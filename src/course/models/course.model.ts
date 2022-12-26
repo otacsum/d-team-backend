@@ -13,7 +13,7 @@ export class Course extends Model {
 
     @ForeignKey(() => Person)
     @Column({
-        type: DataType.UUID,
+        type: DataType.UUIDV4,
     })
     public person_id;
 
@@ -21,7 +21,7 @@ export class Course extends Model {
     instructor: Person;
 
     @HasMany(() => CourseStudent)
-    students: CourseStudent[];
+    students: CourseStudent[] | string[];
 
     @Column
     subject_abbreviation: string;

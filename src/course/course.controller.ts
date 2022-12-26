@@ -1,4 +1,4 @@
-import {Controller, Get, Post, Body, Patch, Param, Delete} from '@nestjs/common';
+import {Controller, Get, Post, Body, Patch, Param, Delete, Query} from '@nestjs/common';
 import {CourseService} from './course.service';
 import {CreateCourseDto} from './dto/create-course.dto';
 import {UpdateCourseDto} from './dto/update-course.dto';
@@ -15,9 +15,21 @@ export class CourseController {
         return this.courseService.create(createCourseDto);
     }
 
-    @Get()
-    findAll() {
-        return this.courseService.findAll();
+    @Get('?')
+    async findAll(@Query('isActive') isActive:boolean = true) {
+        let courses = await this.courseService.findAll(isActive);
+        console.log(courses);
+        return courses;
+    }
+
+    @Get('/teacher/:teacherId')
+    findAllByTeacher(@Param('teacherId') teacherId: string) {
+        return this.courseService.findAllByTeacher(teacherId);
+    }
+
+    @Get('/student/:studentId')
+    findAllByStudent(@Param('studentId') studentId: string) {
+        return this.courseService.findAllByStudent(studentId);
     }
 
     @Get(':id')

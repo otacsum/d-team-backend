@@ -1,4 +1,4 @@
-import {Controller, Get, Post, Body, Patch, Param, Delete} from '@nestjs/common';
+import {Controller, Get, Post, Body, Patch, Param, Delete, Query} from '@nestjs/common';
 import {PersonService} from './person.service';
 import {CreatePersonDto} from './dto/create-person.dto';
 import {UpdatePersonDto} from './dto/update-person.dto';
@@ -13,9 +13,9 @@ export class PersonController {
         return this.personService.create(createPersonDto);
     }
 
-    @Get()
-    findAll() {
-        return this.personService.findAll();
+    @Get('?')
+    findAll(@Query('isActive') isActive:boolean = true) {
+        return this.personService.findAll(isActive);
     }
 
     @Get('type/:personType')

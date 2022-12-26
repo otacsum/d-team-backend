@@ -6,6 +6,9 @@ import {Person} from 'src/person/models/person.model';
 import {CreateCourseDto} from './dto/create-course.dto';
 import {UpdateCourseDto} from './dto/update-course.dto';
 import {CourseStudent} from './models/course-student.model';
+import {Sequelize} from 'sequelize';
+import {group} from 'console';
+import {resolve} from 'path';
 
 @Injectable()
 export class CourseService {
@@ -43,9 +46,62 @@ export class CourseService {
         return returnPayload;
     }
 
-    async findAll() {
+    async findAll(isActive: boolean) {
         try {
-            return await this.courseModel.findAll({
+            let courses = await this.courseModel.findAll({
+                attributes: {
+                    include: [
+                        '*',
+                        [Sequelize.literal('(SELECT COUNT(person_id) from "CourseStudents" WHERE "CourseStudents".course_id = "Course".id GROUP BY "CourseStudents".course_id)'), 'student_count'],
+                    ],
+                },
+                include: [
+                    {
+                        model: Person,
+                        attributes: [
+                            'id',
+                            'first_name',
+                            'last_name',
+                            'email',
+                        ],
+                    },
+                    {
+                        model: CourseStudent,
+                        attributes: ['person_id'],
+                        required: false,
+                        where: {
+                            is_active: true
+                        }
+                    },
+                ],
+                where: {
+                    is_active: isActive,
+                },
+            })
+
+            courses = JSON.parse(JSON.stringify(courses));
+
+            courses.forEach(course => {
+                let student_ids = [];
+                course.students.forEach(student => {
+                    student_ids.push(student.person_id);
+                });
+                course['students'] = student_ids;
+            });
+
+            return courses;
+        } catch (err) {
+            return err;
+        }
+    }
+
+    async findAllByTeacher(teacherId: string) {
+        try {
+            const course = await this.courseModel.findAll({
+                where: {
+                    person_id: teacherId,
+                    is_active: true,
+                },
                 include: {
                     model: Person,
                     attributes: [
@@ -55,6 +111,42 @@ export class CourseService {
                     ],
                 },
             });
+
+            if (course) {
+                return course;
+            } else {
+                throw new NotFoundException;
+            }
+        } catch (err) {
+            return err;
+        }
+    }
+
+    async findAllByStudent(studentId: string) {
+        try {
+            const courseStudent = await this.courseStudentModel.findAll({
+                where: {
+                    person_id: studentId,
+                    is_active: true
+                },
+                include: {
+                    model: Course,
+                    include: [{
+                        model: Person,
+                        attributes: [
+                            'first_name',
+                            'last_name',
+                            'email'
+                        ]
+                    }],
+                },
+            });
+
+            if (courseStudent) {
+                return courseStudent;
+            } else {
+                throw new NotFoundException;
+            }
         } catch (err) {
             return err;
         }

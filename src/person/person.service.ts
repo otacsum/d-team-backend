@@ -49,13 +49,16 @@ export class PersonService {
      * Gets all active people from the database.
      * @returns Array of person objects.
      */
-    async findAll() {
+    async findAll(isActive: boolean) {
         try {
             return await this.personModel.findAll({
                 attributes: {
                     exclude: ['pass_hash']
                 },
                 include: [TeacherCredential],
+                where: {
+                    is_active: isActive,
+                },
             });
         } catch (err) {
             return err;
