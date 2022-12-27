@@ -59,6 +59,7 @@ export class PersonService {
                 where: {
                     is_active: isActive,
                 },
+                order: ['type', 'last_name'],
             });
         } catch (err) {
             return err;
@@ -79,6 +80,7 @@ export class PersonService {
                     exclude: ['pass_hash']
                 },
                 include: [TeacherCredential],
+                order: ['type', 'last_name'],
             });
         } catch (err) {
             return err;
