@@ -77,6 +77,9 @@ export class CourseService {
                 where: {
                     is_active: isActive,
                 },
+                order: [
+                    ['start_date', 'ASC'],
+                ]
             })
 
             courses = JSON.parse(JSON.stringify(courses));
@@ -119,6 +122,9 @@ export class CourseService {
                     person_id: teacherId,
                     is_active: true,
                 },
+                order: [
+                    ['start_date', 'ASC'],
+                ]
             });
 
             if (courses) {
@@ -149,6 +155,9 @@ export class CourseService {
                         ]
                     }],
                 },
+                order: [
+                    ['Course.start_date', 'ASC'],
+                ]
             });
 
             if (courseStudent) {

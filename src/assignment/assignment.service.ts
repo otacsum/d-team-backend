@@ -40,6 +40,9 @@ export class AssignmentService {
     async findAll() {
         try {
             return await this.assignmentModel.findAll({
+                where: {
+                    is_active: true,
+                },
                 include: {
                     model: Course,
                     attributes: [
@@ -48,6 +51,9 @@ export class AssignmentService {
                         'title',
                     ],
                 },
+                order: [
+                    ['due_date', 'DESC'],
+                ]
             });
         } catch (err) {
             return err;
@@ -67,7 +73,11 @@ export class AssignmentService {
                 },
                 where: {
                     course_id: id,
-                }
+                    is_active: true,
+                },
+                order: [
+                    ['due_date', 'ASC'],
+                ]
             });
         } catch (err) {
             return err;
