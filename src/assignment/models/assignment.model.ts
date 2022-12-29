@@ -1,4 +1,5 @@
-import {BelongsTo, Column, DataType, ForeignKey, Model, PrimaryKey, Table} from 'sequelize-typescript';
+import {BelongsTo, Column, DataType, ForeignKey, HasMany, Model, PrimaryKey, Table} from 'sequelize-typescript';
+import {AssignmentGrade} from 'src/assignment-grade/models/assignment-grade.model';
 import {Course} from 'src/course/models/course.model';
 
 @Table
@@ -41,6 +42,9 @@ export class CourseAssignment extends Model {
 
     @Column
     points_possible: number;
+
+    @HasMany(() => AssignmentGrade)
+    grades: AssignmentGrade[] | string[];
 
     @Column
     is_active: boolean;

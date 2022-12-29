@@ -22,6 +22,16 @@ export class AssignmentController {
     return this.assignmentService.findAllByCourseId(id);
   }
 
+  @Get('course/:id/student/:studentId')
+  findAllByCourseWithOneStudentsGrades(@Param('id') id: string, @Param('studentId') studentId: string) {
+    return this.assignmentService.findAllByCourseWithOneStudentsGrades(id, studentId);
+  }
+
+  @Get('course/:id/grades')
+  findAllByCourseIdWithAllGrades(@Param('id') id: string) {
+    return this.assignmentService.findAllByCourseIdWithAllGrades(id);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.assignmentService.findOne(id);

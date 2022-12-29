@@ -1,6 +1,7 @@
 import {BelongsTo, Column, DataType, ForeignKey, HasMany, Model, PrimaryKey, Table} from 'sequelize-typescript';
 import {CourseStudent} from './course-student.model';
 import {Person} from 'src/person/models/person.model';
+import {CourseAssignment} from 'src/assignment/models/assignment.model';
 
 @Table
 export class Course extends Model {
@@ -22,6 +23,9 @@ export class Course extends Model {
 
     @HasMany(() => CourseStudent)
     students: CourseStudent[] | string[];
+
+    @HasMany(() => CourseAssignment)
+    assignments: CourseAssignment[] | string[];
 
     @Column
     subject_abbreviation: string;

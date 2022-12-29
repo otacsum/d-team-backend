@@ -5,6 +5,9 @@ import {CourseAssignment} from './models/assignment.model';
 import {CreateAssignmentDto} from './dto/create-assignment.dto';
 import {UpdateAssignmentDto} from './dto/update-assignment.dto';
 import {ConfirmDto} from 'src/lib/confirm.dto';
+import {CourseStudent} from 'src/course/models/course-student.model';
+import {Person} from 'src/person/models/person.model';
+import {AssignmentGrade} from 'src/assignment-grade/models/assignment-grade.model';
 
 @Injectable()
 export class AssignmentService {
@@ -15,6 +18,9 @@ export class AssignmentService {
 
         @InjectModel(Course)
         private courseModel: typeof Course,
+
+        @InjectModel(CourseStudent)
+        private courseStudent: typeof CourseStudent,
     ) {}
 
     async create(createAssignmentDto: CreateAssignmentDto) {
@@ -78,6 +84,105 @@ export class AssignmentService {
                 order: [
                     ['due_date', 'ASC'],
                 ]
+            });
+        } catch (err) {
+            return err;
+        }
+    }
+
+    async findAllByCourseWithOneStudentsGrades(id: string, studentId: string) {
+        try {
+            return await this.assignmentModel.findAll({
+                include: [
+                    {
+                        model: Course,
+                        attributes: [
+                            'subject_abbreviation',
+                            'code',
+                            'title',
+                            'person_id',
+                        ],
+                    },
+                    {
+                        model: AssignmentGrade,
+                        attributes: [
+                            'points_earned',
+                        ],
+                        where: {
+                            person_id: studentId,
+                            is_active: true,
+                        },
+                        required: false,
+                    },
+                ],
+                where: {
+                    course_id: id,
+                    is_active: true,
+                },
+                order: [
+                    ['due_date', 'ASC'],
+                ],
+                raw: true,
+            });
+        } catch (err) {
+            return err;
+        }
+    }
+
+    async findAllByCourseIdWithAllGrades(id: string) {
+        try {
+            return await this.courseModel.findAll({
+                include: [
+                    {
+                        model: CourseStudent,
+                        attributes: [
+                            'person_id',
+                        ],
+                        include: [
+                            {
+                                model: Person,
+                                attributes: [
+                                    'first_name',
+                                    'last_name',
+                                ],
+                            },
+                        ],
+                        where: {
+                            is_active: true,
+                        },
+                    },
+                    {
+                        model: CourseAssignment,
+                        attributes: [
+                            'id',
+                            'type',
+                            'title',
+                            'points_possible'
+                        ],
+                        include: [
+                            {
+                                model: AssignmentGrade,
+                                attributes: [
+                                    'person_id',
+                                    'points_earned',
+                                ],
+                                where: {
+                                    is_active: true,
+                                },
+                            },
+                        ],
+                        where: {
+                            is_active: true,
+                        },
+                    },
+                ],
+                where: {
+                    id: id,
+                    is_active: true,
+                },
+                order: [
+                    //['due_date', 'ASC'],
+                ],
             });
         } catch (err) {
             return err;

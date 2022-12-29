@@ -156,7 +156,7 @@ export class CourseService {
                     }],
                 },
                 order: [
-                    ['Course.start_date', 'ASC'],
+                    ['course','start_date', 'ASC'],
                 ]
             });
 
