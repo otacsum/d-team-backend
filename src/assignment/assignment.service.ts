@@ -20,7 +20,7 @@ export class AssignmentService {
         private courseModel: typeof Course,
 
         @InjectModel(CourseStudent)
-        private courseStudent: typeof CourseStudent,
+        private courseStudentModel: typeof CourseStudent,
     ) {}
 
     async create(createAssignmentDto: CreateAssignmentDto) {
@@ -75,6 +75,7 @@ export class AssignmentService {
                         'subject_abbreviation',
                         'code',
                         'title',
+                        'person_id',
                     ],
                 },
                 where: {
@@ -83,7 +84,8 @@ export class AssignmentService {
                 },
                 order: [
                     ['due_date', 'ASC'],
-                ]
+                ],
+                raw: true,
             });
         } catch (err) {
             return err;
@@ -131,53 +133,53 @@ export class AssignmentService {
 
     async findAllByCourseIdWithAllGrades(id: string) {
         try {
-            return await this.courseModel.findAll({
+            return await this.courseStudentModel.findAll({
                 include: [
                     {
-                        model: CourseStudent,
-                        attributes: [
-                            'person_id',
-                        ],
-                        include: [
-                            {
-                                model: Person,
-                                attributes: [
-                                    'first_name',
-                                    'last_name',
-                                ],
-                            },
-                        ],
-                        where: {
-                            is_active: true,
-                        },
-                    },
-                    {
-                        model: CourseAssignment,
+                        model: Person,
                         attributes: [
                             'id',
-                            'type',
-                            'title',
-                            'points_possible'
+                            'first_name',
+                            'last_name',
+                        ],
+                    },
+                    {
+                        model: Course,
+                        attributes: [
+                            'id',
                         ],
                         include: [
                             {
-                                model: AssignmentGrade,
+                                model: CourseAssignment,
                                 attributes: [
-                                    'person_id',
-                                    'points_earned',
+                                    'id',
+                                    'type',
+                                    'title',
+                                    'points_possible'
+                                ],
+                                include: [
+                                    {
+                                        model: AssignmentGrade,
+                                        attributes: [
+                                            'person_id',
+                                            'points_earned',
+                                        ],
+                                        where: {
+                                            is_active: true,
+                                        },
+                                        required: false,
+                                    },
                                 ],
                                 where: {
                                     is_active: true,
                                 },
+                                required: false,
                             },
-                        ],
-                        where: {
-                            is_active: true,
-                        },
+                        ]
                     },
                 ],
                 where: {
-                    id: id,
+                    course_id: id,
                     is_active: true,
                 },
                 order: [
@@ -188,6 +190,67 @@ export class AssignmentService {
             return err;
         }
     }
+
+    /*     async findAllByCourseIdWithAllGrades(id: string) {
+            try {
+                return await this.courseModel.findOne({
+                    include: [
+                        {
+                            model: CourseStudent,
+                            attributes: [
+                                'person_id',
+                            ],
+                            include: [
+                                {
+                                    model: Person,
+                                    attributes: [
+                                        'first_name',
+                                        'last_name',
+                                    ],
+                                },
+                            ],
+                            where: {
+                                is_active: true,
+                            },
+                        },
+                        {
+                            model: CourseAssignment,
+                            attributes: [
+                                'id',
+                                'type',
+                                'title',
+                                'points_possible'
+                            ],
+                            include: [
+                                {
+                                    model: AssignmentGrade,
+                                    attributes: [
+                                        'person_id',
+                                        'points_earned',
+                                    ],
+                                    where: {
+                                        is_active: true,
+                                    },
+                                    required: false,
+                                },
+                            ],
+                            where: {
+                                is_active: true,
+                            },
+                        },
+                    ],
+                    where: {
+                        id: id,
+                        is_active: true,
+                    },
+                    order: [
+                        //['due_date', 'ASC'],
+                    ],
+                });
+            } catch (err) {
+                return err;
+            }
+        } */
 
     async findOne(id: string) {
         try {

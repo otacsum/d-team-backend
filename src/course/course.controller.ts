@@ -18,7 +18,6 @@ export class CourseController {
     @Get('?')
     async findAll(@Query('isActive') isActive:boolean = true) {
         let courses = await this.courseService.findAll(isActive);
-        console.log(courses);
         return courses;
     }
 
