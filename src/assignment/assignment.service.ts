@@ -161,6 +161,7 @@ export class AssignmentService {
                                     {
                                         model: AssignmentGrade,
                                         attributes: [
+                                            'id',
                                             'person_id',
                                             'points_earned',
                                         ],
