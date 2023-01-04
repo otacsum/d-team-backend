@@ -9,6 +9,8 @@ import {CourseStudent} from './models/course-student.model';
 import {Sequelize} from 'sequelize';
 import {group} from 'console';
 import {resolve} from 'path';
+import {AssignmentGrade} from 'src/assignment-grade/models/assignment-grade.model';
+import {CourseAssignment} from 'src/assignment/models/assignment.model';
 
 @Injectable()
 export class CourseService {
@@ -144,19 +146,45 @@ export class CourseService {
                     person_id: studentId,
                     is_active: true
                 },
-                include: {
-                    model: Course,
-                    include: [{
-                        model: Person,
-                        attributes: [
-                            'first_name',
-                            'last_name',
-                            'email'
-                        ]
+                include: [
+                    {
+                        model: Course,
+                        include: [
+                            {
+                                model: Person, //Teacher
+                                attributes: [
+                                    'first_name',
+                                    'last_name',
+                                    'email'
+                                ]
+                            },
+                            {
+                                model: CourseAssignment,
+                                attributes: [
+                                    'id',
+                                    'points_possible'
+                                ],
+                                where: {
+                                    is_active: true
+                                },
+                                required: false,
+                                include: [{
+                                    model: AssignmentGrade,
+                                    attributes: [
+                                        'id',
+                                        'points_earned',
+                                    ],
+                                    where: {
+                                        person_id: studentId,
+                                        is_active: true,
+                                    },
+                                    required: false,
+                                }]
+                            }
+                        ],
                     }],
-                },
                 order: [
-                    ['course','start_date', 'ASC'],
+                    ['course', 'start_date', 'ASC'],
                 ]
             });
 

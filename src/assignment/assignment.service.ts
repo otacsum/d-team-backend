@@ -136,7 +136,7 @@ export class AssignmentService {
             return await this.courseStudentModel.findAll({
                 include: [
                     {
-                        model: Person,
+                        model: Person, //Teacher
                         attributes: [
                             'id',
                             'first_name',

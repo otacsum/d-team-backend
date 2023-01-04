@@ -88,7 +88,7 @@ export class AssignmentGradeService {
 
     async findOne(id: string) {
         try {
-            const course = await this.gradeModel.findOne({
+            const grade = await this.gradeModel.findOne({
                 attributes: [
                     'id',
                     'points_earned',
@@ -132,8 +132,8 @@ export class AssignmentGradeService {
                 ],
             });
 
-            if (course) {
-                return course;
+            if (grade) {
+                return grade;
             } else {
                 throw new NotFoundException;
             }
