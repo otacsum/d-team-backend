@@ -54,7 +54,7 @@ export class CourseService {
                 attributes: {
                     include: [
                         '*',
-                        [Sequelize.literal('(SELECT COUNT(person_id) from "CourseStudents" WHERE "CourseStudents".course_id = "Course".id GROUP BY "CourseStudents".course_id)'), 'student_count'],
+                        [Sequelize.literal('(SELECT COUNT(person_id) from "CourseStudents" WHERE "CourseStudents".course_id = "Course".id AND "CourseStudents".is_active = true GROUP BY "CourseStudents".course_id)'), 'student_count'],
                     ],
                 },
                 include: [
