@@ -136,11 +136,14 @@ export class AssignmentService {
             return await this.courseStudentModel.findAll({
                 include: [
                     {
-                        model: Person, //Teacher
+                        model: Person, //Student
                         attributes: [
                             'id',
                             'first_name',
                             'last_name',
+                        ],
+                        order: [
+                            ['last_name', 'ASC']
                         ],
                     },
                     {
